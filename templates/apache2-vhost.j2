@@ -14,7 +14,7 @@
     endscript
     postrotate
 	if pgrep -f ^/usr/sbin/apache2 > /dev/null; then
-    rotate 50
+        invoke-rc.d apache2 reload 2>&1 | logger -t apache2.logrotate
 	fi
     endscript
 }
