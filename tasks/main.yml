@@ -41,10 +41,22 @@
     - vuln
     - web
 
+- name: create bash_completion directory
+  ansible.builtin.file:
+    path: "/etc/bash_completion.d"
+    owner: root
+    group: root
+    mode: "0755"
+    state: directory
+  tags:
+    - config
+    - vuln
+    - web
+
 - name: rotate logs more often
   ansible.builtin.lineinfile:
     path: /etc/cron.d/apache2-vhost
-    line: "*/16 * * * *     root   /usr/sbin/logrotate /etc/logrotate.d/apache2-vhost"
+    line: "*/16 * * * *     root   /usr/sbin/logrotate -f /etc/logrotate.d/apache2-vhost"
     create: true
   tags:
     - install
